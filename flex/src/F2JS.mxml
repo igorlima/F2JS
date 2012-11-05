@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   minWidth="482" 
+			   minHeight="348"
+			   initialize="initApp()">
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			public function initApp():void {
+				if (ExternalInterface.available) {
+					ExternalInterface.addCallback("addPerson", addPerson);
+				}
+			}
+			
+			public function initDataProvider():void {
+				var people:Array = new Array();
+				people.push({nome:"Jesse", idade:"33", sexo:"indefinido"});
+				people.push({nome:"Kadu", idade:"23", sexo:"em cima do muro"});
+				people.push({nome:"Biel", idade:"21", sexo:"assumido"});
+				people.push({nome:"Parmessa", idade:"22", sexo:"ainda nao se sabe"});
+				var peopleCollection:ArrayCollection = new ArrayCollection(people);
+				dgPeople.dataProvider = peopleCollection;
+				dgPeople.selectedIndex = 0;
+			}
+			
+			public function jsDisplayPerson():void {
+				if (ExternalInterface.available) {
+					ExternalInterface.call("displayPerson", dgPeople.selectedItem);
+					message.text = "Dado enviado!";
+				} else {
+					message.text = "Não foi possível enviar o dado!";
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<mx:Panel id="pnlMain" title="Interacao simples com JS">
+		<mx:DataGrid id="dgPeople" initialize="initDataProvider()">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Nome" dataField="nome"/>
+				<mx:DataGridColumn headerText="Idade" dataField="idade"/>
+				<mx:DataGridColumn headerText="Sexo" dataField="sexo"/>
+			</mx:columns>
+			
+		</mx:DataGrid>
+		<mx:Button id="btnJSDisplay" label="JS Display" click="jsDisplayPerson()" />
+		<s:Label id="message"/>
+	</mx:Panel>
+</s:Application>
