@@ -7,7 +7,7 @@ var flashvars = {};
 flashvars.srcUrl = "/";
 var params = {allowFullScreen:"always"};
 var attributes = {};
-swfobject.embedSWF("F2JS.swf", "F2JS", "482", "348", "9.0.124", "/playerProductInstall.swf", flashvars, params, attributes);
+swfobject.embedSWF("F2JS.swf", "F2JS", "482", "280", "9.0.124", "/playerProductInstall.swf", flashvars, params, attributes);
 
 var addPerson = function() {
   var nome = document.getElementById('txtName').value;
