@@ -11,11 +11,18 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			
+			Security.allowDomain("*");
+			Security.allowInsecureDomain("*");
+			
 			public function initApp():void {
 				if (ExternalInterface.available) {
 					ExternalInterface.addCallback("addPerson", addPerson);
 				}
 			}
+			
+			public function addPerson( nome:String, idade:String, sexo:String ):void {
+				(dgPeople.dataProvider as ArrayCollection).addItem({ nome:nome, idade:idade, sexo:sexo });
+			} 
 			
 			public function initDataProvider():void {
 				var people:Array = new Array();
